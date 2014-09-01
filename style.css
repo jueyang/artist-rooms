@@ -135,7 +135,8 @@ section div {
   }
 .intro {
   display:block;
-  width:60%;
+  width:45%;
+  padding-bottom:20px;
   background:#fff;
   }
 /* art div */
