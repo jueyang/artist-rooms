@@ -101,9 +101,6 @@
 				.on('click',function(d){
 			  		categoryList.classed({'active':false});
 			  		artworkList.classed({'active':true});
-					d3.selectAll('.category').classed({'faded':true});
-					// the target remains colored
-					d3.select(this).classed({'active':true});
 
 					refreshArt(d.id);
 				})
