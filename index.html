@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<link href='http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic|Inconsolata' rel='stylesheet' type='text/css'/>
+	<link rel='stylesheet' href='normalize.css' type='text/css'/>
+	<link rel='stylesheet' href='style.css' type='text/css'/>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-54336247-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+</head>
+<body>
+	<section class='screen active' id='intro'>
+		<a href='#' id='proceed'>
+			<h1><span>Ar</span>tist <span>R</span>ooms</h1>
+		</a>
+		<small class='intro'>
+			Click the title, and you will find a space to explore all the artworks under the Artist Rooms archive at the Tate Gallery. Categories, names of the artworks and artists are derived from the metadata available on Tate's <a href='https://github.com/tategallery/collection' target='_blank'>GitHub repository</a>. Processing scripts, resulting data, and the code of this site are also available on GitHub. Copyright information of images can be found on the artworks's page of the Tate website.
+		</small>
+	</section>
+	<section class='screen' id='categories'>
+		<a href='#' id='about'>About</a>
+	</section>
+	<section class='screen' id='artworks'></section>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js'></script>
+	<script src='http://d3js.org/d3.v3.min.js'></script>
+	<script src='http://d3js.org/queue.v1.min.js'></script>
+	<script>
+		// all three screens
+		var intro =d3.select('#intro'),
+			categoryList = d3.select('#categories'),
+			artworkList = d3.select('#artworks');
+
+		// about
+		d3.select('#about')
+			.on('click',function(){
+				intro.classed({'active':true});
+				categoryList.classed({'active':false});
+				artworkList.class({'active':false})
+			});
+
+		queue()
+			.defer(d3.json,'data/level1list.json')
+			.defer(d3.json,'data/level2list_AR.json')
+			.await(init)
+
+		// initilize on clicking title page
+		function init(error,level1,level2){
+			d3.select('#proceed')
+				.on('click',function(){
+					intro.classed({'active':false});
+			  		categoryList.classed({'active':true});
+					ready(level1,level2);
+				})
+		}
+
+		function ready(level1, level2){
+			var selectedLevel1,
+				selectedLevel2,
+				category,subCategory,artwork;
+
+			// get only applicable level1 id
+			// from the level2 data
+			// unsorted
+			var applicableCategories = _.chain(level2)
+				.map(function(o){return o.parent1;})
+				.uniq()
+				.value();
+
+			// create the applicable level1 collection
+			var categories = _.map(applicableCategories,function(id){
+				return _.findWhere(level1,{'id':id});
+			});
+
+			//create categories level1
+			var category = categoryList.append('ul').selectAll('li')
+				.data(categories,function(d){return d.id;});
+
+			category.enter().append('li')
+				.attr('class','level1 cf');
+
+			category.append('a')
+				.attr('href','#')
+				.append('p')
+				.attr('class','category')
+				.text(function(d){return d.name;})
+				.on('click',function(d){
+			  		categoryList.classed({'active':false});
+			  		artworkList.classed({'active':true});
+					d3.selectAll('.category').classed({'faded':true});
+					// the target remains colored
+					d3.select(this).classed({'active':true});
+
+					refreshArt(d.id);
+				})
+
+			category.exit().remove();
+
+			function refreshArt(parentId){
+				parentId = parentId || null;
+
+				if (parentId === null) {
+					selectedLevel1 = []
+					selectedLevel2 = []
+				} else {
+					selectedLevel1 = _.filter(level1,function(o){
+						return o.id === parentId
+					});
+					selectedLevel2 = _.filter(level2, function(o){
+						return o.parent1 === parentId
+					});
+				}
+
+				// title on the artlist
+				subCategoryTitle = artworkList.selectAll('h2')
+					.data(selectedLevel1, function(d){return d.id;});
+
+				subCategoryTitle.enter().append('h2')
+					.attr('class','category-title')
+					.text(function(d){return d.name;})
+					.style('opacity',0)
+
+				// close button
+				subCategoryTitle.append('a')
+						.attr('href','#')
+						.attr('id','close')
+						.text('╳')
+						.on('click',function(){
+					  		categoryList.classed({'active':true});
+					  		artworkList.classed({'active':false});
+							d3.selectAll('.category').classed({'faded':false,'active':false});
+							refreshArt();
+						});
+
+				subCategory = artworkList.selectAll('.level2')
+					.data(selectedLevel2,function(d){return d.id;});
+
+			  	subCategory.enter().append('section')
+			  		.attr('class','level2 cf')
+			  		.style('opacity',0)
+			  	
+			  	subCategory.append('p')
+			  		.text(function(d){return d.name;});
+
+			  	// create artworks
+
+			  	artwork = subCategory.selectAll('.art')
+			  		.data(function(d){return d.artlist;})
+
+			  	artwork.enter().append('div')
+			  		.attr('class','art')
+			  		//.style('opacity',0) // transition
+			  		.append('a')
+			  		.attr('href',function(d){return d.url;})
+			  		.attr('target','_blank')
+			  		.append('img')
+			  		.attr('src',function(d){
+			  			if (d.thumb != 'none') {
+			  				return 'data:image/gif;base64,' + d.thumb
+			  			} else {
+			  				return 'blank_w_40.jpg'
+			  			}
+			  		});
+
+			  	artwork.append('p')
+			  		.attr('class','title')
+			  		.text(function(d){return d.title;});
+
+			  	artwork.append('p')
+			  		.attr('class','artist')
+			  		.text(function(d){return d.artist;})
+
+			  	// update
+			  	subCategoryTitle.exit().remove();
+			  	subCategory.exit().remove();
+			  	artwork.exit().remove()
+
+			  	// animation
+				subCategoryTitle.transition()
+			  		.delay(function(d,i){return 500*i;})
+			  		.duration(1000)
+			  		.style('opacity',1);
+
+			  	subCategory.transition()
+			  		.delay(function(d,i){return 500*(i+1);})
+			  		.duration(1000)
+			  		.style('opacity',1);
+			}
+		}
+	</script>
+</body>
+</html>
