@@ -1,6 +1,12 @@
 Artist Rooms
 ============
 
+#### Why
+
+[It all started from an object](https://github.com/jueyang/artist-rooms/blob/gh-pages/WHY.md).
+
+### How
+
 Metadata from Tate Gallery: 
 - https://github.com/tategallery/collection
 
