@@ -183,6 +183,10 @@ p.artist {
 }
 
 @media screen and (max-width:768px) {
-  h1 {font-size:42px;}
+  h1 {font-size:42px;line-height:1.2em;}
+  h2.category-title {margin-left:20px;}
+  .screen {padding:20px;}
+  section ul li {padding:0 20px 0 0;}
+  section {padding:20px;}
   .intro {width:95%;}
 };
