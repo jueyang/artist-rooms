@@ -13,8 +13,10 @@ Metadata from Tate Gallery:
 Tools used for this project:
 
 - Python: create indices for `subjects` associated with each artwork
-- cURL: download thumbnails for the collection
-- imagemagick: resize and crop thumbnails into fitting size
+- Wrapped in Bash scripts:
+  - cURL: download thumbnails for the collection
+  - imagemagick: resize and crop thumbnails into fitting size
+  - openssl: base64 encode images to associated them within the json object
 - d3.js: put data into browser
 
 Detailed process and thoughts can be found in:
