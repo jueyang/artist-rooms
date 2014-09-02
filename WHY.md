@@ -1,6 +1,6 @@
 ### It all started with an object
 
-It all started with an object I saw from the [collection metadata](https://github.com/tategallery/collection) of the Tate Gallery. I was intrigued by the `subjects` field, which appears to be the curitorial description and categorization of an artwork, presented along with the title, artist(s), and many other attributes:
+that I saw from the [collection metadata](https://github.com/tategallery/collection) of the Tate Gallery. I was intrigued by the `subjects` field, which appears to be the curitorial description and categorization of an artwork, presented along with the title, artist(s), and many other attributes:
 
 https://twitter.com/jue_yang/status/500309650097831936
 
