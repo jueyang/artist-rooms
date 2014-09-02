@@ -3,7 +3,7 @@ Artist Rooms
 
 ### Why
 
-[It all started from an object](https://github.com/jueyang/artist-rooms/blob/gh-pages/WHY.md).
+[It all started with an object](https://github.com/jueyang/artist-rooms/blob/gh-pages/WHY.md).
 
 ### How
 
