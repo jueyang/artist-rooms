@@ -1,6 +1,6 @@
 ### It all started with an object
 
-that I saw from the [collection metadata](https://github.com/tategallery/collection) of the Tate Gallery. I was intrigued by the `subjects` field, which appears to be the curitorial description and categorization of an artwork, presented along with the title, artist(s), and many other attributes:
+that I saw from the [collection metadata](https://github.com/tategallery/collection) of the Tate Gallery. I was intrigued by the `subjects` field, which appeared to be the curitorial description and categorization of an artwork, presented along with the title, artist(s), and many other attributes:
 
 https://twitter.com/jue_yang/status/500309650097831936
 
@@ -12,12 +12,12 @@ So the quest began.
 
 After a [brief study](https://github.com/jueyang/into-the-tate/blob/play/bin/README.m) of the data I converted the subjects into three flat look-up files. The schematics were clearer, yet something was missing. The important piece of the visual knowledge - the image reprsentation of the art itself - was only captured in the form of URLs.
 
-This would not be a problem if I were doing an quantitative analysis of the metadata, such as the acquisition year of artworks, or the number of contributors they had. But my quest was not about quantifying art. Rather I was trying to fill in the blanks of a curitorial description with flesh, an archival skeleton that would be empty, and too abstract, without images. Words can descibe and interpret art, but (visual) art is not tangible until it is seen.
+This would not be a problem if I were doing a quantitative analysis of the metadata, such as the acquisition year of artworks, or the number of contributors they had. But my quest was not about quantifying art. Rather I was trying to fill in the blanks of a curitorial description with flesh, an archival skeleton that would be empty, and too abstract, without images. Words can descibe and interpret art, but (visual) art is not tangible until it is seen.
 
 So the quest continued.
 
 The download of the images took a couple of hours with cURL. Even though no image exceeded a few dozen kilobytes, the agglomeration of over 70,000 files added up. It became clear that I wouldn't be able to fit the artworks in a browser all at once, at least not with front-end-only solutions (which is mostly where my realm of web knowledge resides so far.) I picked the Artist Rooms archive for the most pragmatic reason: the size of its files (both words and images) was the smallest among all the acession-number-based metadata.
 
-With a focused group of content, I made a new subject look-up file, each subject associated with an array of the respective Artist Rooms artworks and their images. That json file became the start for the this site.
+With a focused group of content, I made a new subject look-up file, each subject associated with an array of the respective Artist Rooms artworks and their images. That json file became the start of this site.
 
-With the visual presentation and the interactions of an idea coming to life in the browser, I used d3 to map the data to the screen. I felt at home.
+To bring the interactions into the browser, I used d3 to map the data to the screen. I felt at home. The rest was about honest portrayal of the information I'd thought about, the visual manifestation of an idea, which some might refer to as design. But you see, the design started with the first sight of an object.
