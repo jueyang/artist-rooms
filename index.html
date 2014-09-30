@@ -138,17 +138,17 @@
 
                 // close button
                 subCategoryTitle.append('a')
-                        .attr('href','#')
-                        .attr('id','close')
-                        .text('╳')
-                        .on('click',function(){
-                            categoryList.classed({'active':true});
-                            artworkList.classed({'active':false});
-                            d3.selectAll('.category').classed({'faded':false,'active':false});
+                    .attr('href','#')
+                    .attr('id','close')
+                    .text('╳')
+                    .on('click',function(){
+                        categoryList.classed({'active':true});
+                        artworkList.classed({'active':false});
+                        d3.selectAll('.category').classed({'faded':false,'active':false});
 
-                            // renderCategories(categories);
-                            refreshArt();
-                        });
+                        // renderCategories(categories);
+                        refreshArt();
+                    });
 
                 subCategory = artworkList.selectAll('.level2')
                     .data(selectedLevel2,function(d){return d.id;});
