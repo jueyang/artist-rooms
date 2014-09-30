@@ -24,5 +24,3 @@ Detailed process and thoughts can be found in:
 
 Resulting files are in:
 - https://github.com/jueyang/into-the-tate/tree/play/processed
-
-A brief thought Process is [here](https://github.com/jueyang/artist-rooms/blob/gh-pages/WHY.md). 
