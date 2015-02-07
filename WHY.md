@@ -10,7 +10,7 @@ _Universal concepts_, what a term. There's something curious and poetic. What is
 
 So the quest began.
 
-After a [brief study](https://github.com/jueyang/into-the-tate/blob/play/bin/README.m) of the data I converted the subjects into three flat look-up files. The schematics were clearer, yet something was missing. The important piece of the visual knowledge - the image reprsentation of the art itself - was only captured in the form of URLs.
+After a [brief study](https://github.com/jueyang/into-the-tate/blob/play/bin/README.md) of the data I converted the subjects into three flat look-up files. The schematics were clearer, yet something was missing. The important piece of the visual knowledge - the image reprsentation of the art itself - was only captured in the form of URLs.
 
 This would not be a problem if I were doing a quantitative analysis of the metadata, such as the acquisition year of artworks, or the number of contributors they had. But my quest was not about quantifying art. Rather I was trying to fill in the blanks of a curitorial description with flesh, an archival skeleton that would be empty, and too abstract, without images. Words can descibe and interpret art, but (visual) art is not tangible until it is seen.
 
