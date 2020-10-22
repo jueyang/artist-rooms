@@ -19,54 +19,52 @@
 <body>
     <section class='screen active' id='intro'>
         <a href='#' id='proceed'>
-            <h1><span>Ar</span>tist <span>R</span>ooms</h1>
+            <h1><span>Artist Rooms</span></h1>
         </a>
-        <small class='intro'>
-            Click the title, and you will find a space to explore all the artworks under the Artist Rooms archive at the <a href='http://www.tate.org.uk/' target='_blank'>Tate Gallery</a>. Categories, names of the artworks and artists are derived from the metadata available on Tate's <a href='https://github.com/tategallery/collection' target='_blank'>GitHub repository</a>.
-            If you are cruious about the process of this project, feel free to <a href='https://github.com/jueyang/artist-rooms/tree/gh-pages/WHY.md' target='_blank'>read about it</a> or poke around the<a href='https://github.com/jueyang/into-the-tate/tree/play/bin' target='_blank'> processing scripts</a>, 
-            <a href='https://github.com/jueyang/into-the-tate/tree/play/processed' target='_blank'>resulting files</a>, 
-            and the <a href='https://github.com/jueyang/artist-rooms' target='_blank'>code of this site</a>.
-        </small>
-        <small class='intro'>
-            Copyright information the of artwork images can be found on their respective pages through the Tate website.
-        </small>
+        <p class='intro'>
+            Click the title and start explore artworks from a collection named Artist Rooms at the <a href='http://www.tate.org.uk/' target='_blank'>Tate Gallery</a>. Artwork typology, titles and artist names are derived from the metadata from Tate's <a href='https://github.com/tategallery/collection' target='_blank'>GitHub repository</a>. I wrote a bit about <a href='https://github.com/jueyang/artist-rooms/tree/gh-pages/WHY.md' target='_blank'>why</a> I made this project. If you are cruious about my process, you can browse the <a href='https://github.com/jueyang/into-the-tate/tree/play/bin' target='_blank'>data processing scripts</a>, <a href='https://github.com/jueyang/into-the-tate/tree/play/processed' target='_blank'>resulting files</a>, and <a href='https://github.com/jueyang/artist-rooms' target='_blank'>code of this site</a>. Copyright information of the artworks can be found on their respective pages on the Tate website.
+        </p>
     </section>
     <section class='screen' id='categories'>
-        <a href='#' id='about'>About</a>
+        <a href='#' id='about'>Back to Introduction</a>
     </section>
     <section class='screen' id='artworks'></section>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js'></script>
     <script src='https://d3js.org/d3.v3.min.js'></script>
     <script src='https://d3js.org/queue.v1.min.js'></script>
     <script>
-        // all three screens
+        // define all three screens
         var intro =d3.select('#intro'),
             categoryList = d3.select('#categories'),
             artworkList = d3.select('#artworks');
 
-        // about
+        // navigate to about page
         d3.select('#about')
             .on('click',function(){
                 intro.classed({'active':true});
                 categoryList.classed({'active':false});
-                artworkList.classed({'active':false})
+                artworkList.classed({'active':false});
             });
 
+        // navigate to categoryList page
+        d3.select('#proceed')
+            .on('click',function(){
+                intro.classed({'active':false});
+                categoryList.classed({'active':true});
+            });
+
+        // queue dataset
         queue()
             .defer(d3.json,'data/level1list.json')
             .defer(d3.json,'data/level2list_AR.json')
             .await(init)
 
-        // initilize on clicking title page
+        // initilize when data is ready
         function init(error,level1,level2){
-            d3.select('#proceed')
-                .on('click',function(){
-                    intro.classed({'active':false});
-                    categoryList.classed({'active':true});
-                    ready(level1,level2);
-                })
+            ready(level1,level2);
         }
 
+        // main function
         function ready(level1, level2){
             var selectedLevel1,
                 selectedLevel2,
