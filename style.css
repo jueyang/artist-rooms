@@ -53,8 +53,8 @@ body * {
   color:#444;
   }
 h1 {
-  font:88px/1.475 'Inconsolata',monospace;
-  letter-spacing: .85em;
+  font:80px/1.475 'Inconsolata',monospace;
+  letter-spacing: 0.8em;
   text-transform: uppercase;
   }
 h1 span {
@@ -93,9 +93,12 @@ p.active {
   color:#fa0;
   }
 p {
-  font:22px/1.667 'Open Sans',sans-serif;
-  letter-spacing: 0.1em;
+  font:22px/1.667 'Inconsolata',monospace;
+  color:#444;
   }
+p a {
+  text-decoration: underline;
+}
 p:first-letter,
 h2:first-letter {text-transform: capitalize;}
 ul li {
@@ -105,10 +108,6 @@ ul li a p {
   font:22px/1.667 'Crimson Text',serif;
   font-style:italic;
   letter-spacing: 0;
-  }
-small{
-  font:22px/1.667 'Inconsolata',monospace;
-  color:#aaa;
   }
 section {
   float:left;
